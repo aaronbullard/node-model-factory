@@ -1,72 +1,111 @@
 # node-model-factory
 A laravel-like model factory using faker.js
 
+### Install
+
+Node dependencies
+
+```
+npm install node-model-factory
+```
 
 ### Example
-```
-var express = require('express');
-var factory = require('node-model-factory');
+./my-factories/factory.js
+```js
+import Factory from 'node-model-factory'
 
 //Define your models...
+let factory = new Factory();
 
-// Address
-factory.define('Address', function(faker){
-  return {
-    city: faker.address.city(),
-    state: faker.address.state()
-  };
-});
-
-// Car
-factory.define('Car', function(faker){
-  return {
-    make: faker.company.companyName(),
-    model: faker.hacker.noun(),
-    year: faker.random.arrayElement([2012, 2013, 2014, 2015])
-  };
-});
-
-// User
-factory.define('User', function(faker, factory){
-  var address = factory.make('Address');
-  var cars = factory.times(2).make('Car');
-  return {
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    age: faker.random.arrayElement([35, 36, 37, 38]),
-    address: address,
-    cars: cars
-  };
-});
-
-
-// Sample use case
-// Make 3 users
-var users = factory('User').times(3).make();
-
-console.log(users);
-//
-{
-  "firstName": "Susana",
-  "lastName": "Christiansen",
-  "age": 37,
-  "address": 
-  {
-    "city": "Joaquin berg",
-    "state": "Rhode Island"
-  },
-  "cars": [
-    {
-      "make": "Wuckert LLC",
-      "model": "microchip",
-      "year": 2014
-    },
-    {
-      "make": "Hodkiewicz - Boyle",
-      "model": "card",
-      "year": 2015
+factory.define('City', (faker) => {
+    return {
+        city: faker.address.city(),
+        state: faker.address.stateAbbr()
     }
-  ]
-}
+});
 
+// include other models (see hometown)
+factory.define('Person', (faker, factory) => {
+    return {
+        first_name: faker.name.firstName(),
+        last_name: faker.name.lastName(),
+        hometown: factory.make('City')
+    }
+});
+
+export default factory;
+```
+
+### Sample Use Cases
+
+#### Make One
+```js
+import factory from './my-factories/factory.js'
+
+// Make 1 Person
+var person = factory.make('Person');
+
+console.log(person);
+/*
+{
+  first_name: "Bob",
+  last_name: "Smith",
+  hometown: {
+    city: "Wilmington"
+    state: "NC"
+  }
+}
+*/
+```
+
+#### Make Several
+```js
+import factory from './my-factories/factory.js'
+
+// Make 1 Person
+var people = factory.times(2).make('Person');
+
+console.log(people);
+/*
+[
+  {
+    first_name: "Bob",
+    last_name: "Smith",
+    hometown: {
+      city: "Wilmington"
+      state: "NC"
+    }
+  },
+  {
+    first_name: "Jane",
+    last_name: "Doe",
+    hometown: {
+      city: "Charleston"
+      state: "SC"
+    }
+  }
+]
+*/
+```
+
+#### Override Attributes
+```js
+import factory from './my-factories/factory.js'
+
+// Make 1 Person
+var person = factory.make('Person', {
+  first_name: "John"
+});
+
+console.log(person);
+/*
+{
+  first_name: "John", //first name is 'John' and not random from faker
+  last_name: "Smith",
+  hometown: {
+    city: "Wilmington"
+    state: "NC"
+  }
+}
+*/
 ```

@@ -13,7 +13,7 @@
     "faker",
     "faker.js"
   ],
-  "author": "Aaron Bullard <jabullard@aol.com>",
+  "author": "Aaron Bullard <aaron.bullard77@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "faker": "^3.0.1"

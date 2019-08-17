@@ -1,56 +1,59 @@
-var faker = require('faker');
+import faker from 'faker';
 
-module.exports = {
+class Factory {
 
-  _factories: {},
-
-
-  _times: 1,
-
-
-  _makeOnce: function(name, overrides){
-    var callback = this._factories[name];
-
-    var times = this._times;
-    this._times = 1;
-
-    var obj =  callback(faker, this);
-    
-    this._times = times;
-
-    return this._merge(obj, overrides);
-  },
-
-  _merge: function(obj1, obj2){
-      var obj3 = {};
-      for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
-      for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
-      return obj3;
-  },
-
-
-  define: function(name, callback){
-    this._factories[name] = callback;
-
-    return this;
-  },
-
-
-  make: function(name, overrides){
-    var results = [];
-
-    while(this._times--){
-      results.push(this._makeOnce(name, overrides));
+    constructor(fakerInstance = null) {
+        this._faker = fakerInstance || faker;
+        this._factories = {};
+        this._times = null;
     }
 
-    this._times = 1;
+    define (name, callback) {
+        this._factories[name] = callback;
+        
+        return this;
+    }
 
-    return results;
-  },
+    times (number) {
+        if (number < 1) {
+            throw new Error('Argument 1 must be positive');
+        }
 
+        this._times = number;
 
-  times: function(number){
-    this._times = number;
-    return this;
-  }
-};
+        return this;
+    }
+
+    make (name, overrides = {}) {
+        if (!this._factories.hasOwnProperty(name)) {
+            throw new Error(`Model '${name}' not defined`);
+        }
+
+        let callback = this._factories[name];
+
+        // Do we want 1 or an array of several
+        if(this._times !== null){
+            let amount = this._times;
+
+            this._times = null;
+
+            return [...new Array(amount)].map(i => {
+                return this._makeOnce(callback, overrides);
+            })
+        }
+
+        // return one instance
+        return this._makeOnce(callback, overrides);
+    }
+
+    _makeOnce (callback, overrides) {
+        let obj = callback(this._faker, this);
+
+        return {
+            ...obj,
+            ...overrides
+        }
+    }
+}
+
+export default Factory;

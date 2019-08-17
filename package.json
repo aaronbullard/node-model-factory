@@ -1,10 +1,11 @@
 {
   "name": "node-model-factory",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A laravel-like model factory using faker.js.",
-  "main": "index.js",
+  "main": "/dist/factory.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx babel src --out-dir dist",
+    "test": "jest"
   },
   "keywords": [
     "model",
@@ -12,9 +13,17 @@
     "faker",
     "faker.js"
   ],
-  "author": "Aaron Bullard <jabullard@aol.com>",
+  "author": "Aaron Bullard <aaron.bullard77@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "faker": "^3.0.1"
+    "faker": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "babel-jest": "^24.5.0",
+    "jest": "^24.5.0",
+    "regenerator-runtime": "^0.11.1"
   }
 }

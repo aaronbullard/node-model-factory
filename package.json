@@ -16,7 +16,7 @@
   "author": "Aaron Bullard <aaron.bullard77@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "faker": "^3.0.1"
+    "faker": "^4.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

@@ -1,8 +1,8 @@
 {
   "name": "node-model-factory",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A laravel-like model factory using faker.js.",
-  "main": "/dist/factory.js",
+  "main": "dist/factory.js",
   "scripts": {
     "build": "npx babel src --out-dir dist",
     "test": "jest"

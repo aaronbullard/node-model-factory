@@ -21,7 +21,7 @@ describe('Factory', () => {
         });
     })
 
-    it('defines a model', () => {
+    fit('defines a model', () => {
         let city = factory.make('City');
         expect(Object.keys(city)).toEqual(['city', 'state']);
     })

@@ -93,5 +93,4 @@ function () {
   return Factory;
 }();
 
-var _default = Factory;
-exports["default"] = _default;
+exports["default"] = Factory;

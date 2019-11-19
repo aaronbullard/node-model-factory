@@ -1,4 +1,4 @@
-import Factory from '../src/factory.js';
+import Factory from '../dist/factory.js'
 
 describe('Factory', () => {
 
@@ -21,7 +21,7 @@ describe('Factory', () => {
         });
     })
 
-    fit('defines a model', () => {
+    it('defines a model', () => {
         let city = factory.make('City');
         expect(Object.keys(city)).toEqual(['city', 'state']);
     })

@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-class Factory {
+export default class Factory {
 
     constructor(fakerInstance = null) {
         this._faker = fakerInstance || faker;
@@ -55,5 +55,3 @@ class Factory {
         }
     }
 }
-
-export default Factory;

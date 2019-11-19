@@ -1,6 +1,6 @@
 {
   "name": "node-model-factory",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A laravel-like model factory using faker.js.",
   "main": "dist/factory.js",
   "scripts": {

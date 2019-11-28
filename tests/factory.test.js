@@ -1,4 +1,4 @@
-import Factory from '../dist/factory.js'
+import Factory from '../src'
 
 describe('Factory', () => {
 

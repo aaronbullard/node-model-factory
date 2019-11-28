@@ -12,7 +12,7 @@ Node dependencies
 npm install node-model-factory
 ```
 ### Initializing
-`node-model-factory` includes the latest 4.0 version of [faker.js](https://www.npmjs.com/package/faker).  It is injected as the first agument of your definition closure.
+`node-model-factory` includes the latest 4.1 version of [faker.js](https://www.npmjs.com/package/faker).  It is injected as the first agument of your definition closure.
 
 ### API
 > Factory::define(name, closure)
